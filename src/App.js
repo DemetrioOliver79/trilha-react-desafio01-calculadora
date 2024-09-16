@@ -1,9 +1,7 @@
-
-import Input from './components/Input';
-import Button from './components/Button';
-
-import { Container, Content, Row } from './styles';
 import { useState } from 'react';
+import Button from './components/Button';
+import Input from './components/Input';
+import { Container, Content, Row } from './styles';
 
 
 const App = () => {
@@ -48,6 +46,33 @@ const App = () => {
     }
 
   }
+  const handleMultNumbers = () => {
+
+    if(firstNumber === '0'){
+        setFirstNumber(String(currentNumber));
+        setCurrentNumber('0')
+        setOperation('x')
+    }else {
+      const mult = Number(firstNumber) * Number(currentNumber);
+      setCurrentNumber(String(mult))
+      setOperation('')
+    }
+
+  }
+
+  const handleDivisNumbers = () => {
+
+    if(firstNumber === '0'){
+        setFirstNumber(String(currentNumber));
+        setCurrentNumber('0')
+        setOperation('/')
+    }else {
+      const divis = Number(firstNumber) / Number(currentNumber);
+      setCurrentNumber(String(divis))
+      setOperation('')
+    }
+
+  }
 
   const handleEquals = () => {
 
@@ -58,6 +83,12 @@ const App = () => {
             break;
           case '-':
             handleMinusNumbers();
+            break;
+            case 'x':
+            handleMultNumbers();
+            break;
+            case '/':
+            handleDivisNumbers();
             break;
           default: 
             break;
@@ -71,8 +102,8 @@ const App = () => {
       <Content>
         <Input value={currentNumber}/>
         <Row>
-          <Button label="x"/>
-          <Button label="/"/>
+          <Button label="x" onClick={handleMultNumbers}/>
+          <Button label="/" onClick={handleDivisNumbers}/>
           <Button label="c" onClick={handleOnClear}/>
           <Button label="."/>
         </Row>
